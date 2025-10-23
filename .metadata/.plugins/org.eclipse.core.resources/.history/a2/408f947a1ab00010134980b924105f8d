@@ -1,0 +1,51 @@
+package repaso1;
+
+import java.io.*;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec6 {
+    private JFrame frame;
+    private JTextField txtArchivo1, txtArchivo2;
+    private JTextArea textAreaDiferencias;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec6 window = new ejec6();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec6() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Comparador de Archivos");
+        frame.setBounds(100, 100, 600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtArchivo1 = new JTextField();
+        txtArchivo1.setBounds(20, 20, 300, 25);
+        frame.getContentPane().add(txtArchivo1);
+
+        txtArchivo2 = new JTextField();
+        txtArchivo2.setBounds(20, 60, 300, 25);
+        frame.getContentPane().add(txtArchivo2);
+
+        JButton btnComparar = new JButton("Comparar");
+        btnComparar.setBounds(330, 40, 100, 25);
+        frame.getContentPane().add(btnComparar);
+
+        textAreaDiferencias = new JTextArea();
+        textAreaDiferencias.setBounds(20, 100, 530, 250);
+        frame.getContentPane().add(textAreaDiferencias);
+    }
+}

@@ -1,0 +1,74 @@
+package repaso1;
+
+import java.io.*;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec6 {
+	private JFrame frame;
+	private JTextField txtArchivo1, txtArchivo2;
+	private JTextArea textAreaDiferencias;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(() -> {
+			try {
+				ejec6 window = new ejec6();
+				window.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	public ejec6() {
+		initialize();
+	}
+
+	private void initialize() {
+		frame = new JFrame("Comparador de Archivos");
+		frame.setBounds(100, 100, 600, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		txtArchivo1 = new JTextField();
+		txtArchivo1.setBounds(20, 20, 256, 25);
+		frame.getContentPane().add(txtArchivo1);
+
+		txtArchivo2 = new JTextField();
+		txtArchivo2.setBounds(294, 20, 280, 25);
+		frame.getContentPane().add(txtArchivo2);
+
+		JButton btnComparar = new JButton("Comparar");
+		btnComparar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String rutaFichero1 = txtArchivo1.getText();
+				String rutaFichero2 = txtArchivo2.getText();
+				int contador = 1;
+				try (BufferedReader br1 = new BufferedReader(new FileReader(rutaFichero1));
+						BufferedReader br2 = new BufferedReader(new FileReader(rutaFichero2))) {
+					String linea1;
+					String linea2;
+					while ((linea1 = br1.readLine()) != null) {
+						while ((linea2 = br2.readLine()) != null) {
+							if (linea1.equals(linea2)) {
+								textAreaDiferencias.setText(
+										"Diferencia en la linea " + contador + "l1: " + linea1 + "l2: " + linea2);
+							}
+						}
+					}
+					contador++;
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnComparar.setBounds(175, 56, 212, 33);
+		frame.getContentPane().add(btnComparar);
+
+		textAreaDiferencias = new JTextArea();
+		textAreaDiferencias.setBounds(20, 100, 530, 250);
+		frame.getContentPane().add(textAreaDiferencias);
+	}
+}
