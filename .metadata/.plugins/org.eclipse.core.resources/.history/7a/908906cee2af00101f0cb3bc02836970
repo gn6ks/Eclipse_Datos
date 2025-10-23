@@ -1,0 +1,54 @@
+package repaso1;
+
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec1 {
+    private JFrame frame;
+    private JTextField txtRuta;
+    private JTextArea textAreaContenido;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec1 window = new ejec1();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec1() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Explorador de Archivos");
+        frame.setBounds(100, 100, 500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtRuta = new JTextField();
+        txtRuta.setBounds(20, 20, 300, 25);
+        frame.getContentPane().add(txtRuta);
+
+        JButton btnAbrir = new JButton("Abrir");
+        btnAbrir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnAbrir.setBounds(330, 20, 100, 25);
+        frame.getContentPane().add(btnAbrir);
+
+        JButton btnMostrar = new JButton("Mostrar Contenido");
+        btnMostrar.setBounds(20, 60, 150, 25);
+        frame.getContentPane().add(btnMostrar);
+
+        textAreaContenido = new JTextArea();
+        textAreaContenido.setBounds(20, 100, 430, 250);
+        frame.getContentPane().add(textAreaContenido);
+    }
+}

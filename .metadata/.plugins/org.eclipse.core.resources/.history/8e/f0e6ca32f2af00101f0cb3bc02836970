@@ -1,0 +1,92 @@
+package repaso1;
+
+import java.io.*;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec4 {
+    private JFrame frame;
+    private JTextField txtRuta;
+    private JTextArea textAreaContenido;
+    private JLabel lblLineas, lblPalabras, lblCaracteres;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec4 window = new ejec4();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec4() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Analizador de Archivos");
+        frame.setBounds(100, 100, 600, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtRuta = new JTextField();
+        txtRuta.setBounds(20, 20, 408, 25);
+        frame.getContentPane().add(txtRuta);
+
+        JButton btnAnalizar = new JButton("Analizar");
+        btnAnalizar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String ficheroLeer = txtRuta.getText();
+        		if (ficheroLeer.isEmpty()) {
+        			JOptionPane.showMessageDialog(btnAnalizar, "no se ha especificado la ruta");
+        		} else {
+        			int numLineas = 0;
+                    int numCaracteres = 0;
+                    int numPalabras = 0;
+            		try (BufferedReader br = new BufferedReader(new FileReader(ficheroLeer))) {
+            			String linea;
+            			StringBuilder sb = new StringBuilder();
+            			while ((linea = br.readLine()) != null ) {
+            				numLineas++;
+            				numPalabras += linea.split("\\s").length;
+            				numCaracteres += linea.length();
+            				sb.append(linea);
+            			}
+            			lblLineas.setText(String.valueOf(numLineas));
+            			lblPalabras.setText(String.valueOf(numPalabras));
+            			lblCaracteres.setText(String.valueOf(numCaracteres));
+            			textAreaContenido.setText(sb.toString());
+            		} catch (Exception ex) {
+            			ex.printStackTrace();
+            		}	
+        		}
+        	}
+        });
+        btnAnalizar.setBounds(450, 20, 100, 25);
+        frame.getContentPane().add(btnAnalizar);
+
+        textAreaContenido = new JTextArea();
+        textAreaContenido.setBounds(20, 60, 530, 200);
+        frame.getContentPane().add(textAreaContenido);
+
+        JLabel lblStats = new JLabel("Estadísticas:");
+        lblStats.setBounds(20, 280, 100, 25);
+        frame.getContentPane().add(lblStats);
+
+        lblLineas = new JLabel("Líneas: 0");
+        lblLineas.setBounds(20, 310, 200, 25);
+        frame.getContentPane().add(lblLineas);
+
+        lblPalabras = new JLabel("Palabras: 0");
+        lblPalabras.setBounds(20, 340, 200, 25);
+        frame.getContentPane().add(lblPalabras);
+
+        lblCaracteres = new JLabel("Caracteres: 0");
+        lblCaracteres.setBounds(20, 370, 200, 25);
+        frame.getContentPane().add(lblCaracteres);
+    }
+}

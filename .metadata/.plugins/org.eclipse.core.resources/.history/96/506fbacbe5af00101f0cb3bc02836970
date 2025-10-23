@@ -1,0 +1,73 @@
+package repaso1;
+
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec1 {
+    private JFrame frame;
+    private JTextField txtRuta;
+    private JTextArea textAreaContenido;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec1 window = new ejec1();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec1() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Explorador de Archivos");
+        frame.setBounds(100, 100, 500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtRuta = new JTextField();
+        txtRuta.setBounds(20, 20, 320, 25);
+        frame.getContentPane().add(txtRuta);
+
+        JButton btnAbrir = new JButton("Buscar");
+        btnAbrir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String ruta = txtRuta.getText();
+        		ArrayList<String> propiedadesRuta = new ArrayList<>();
+        		File rutaFichero = new File(ruta);
+        		String nombreFichero = rutaFichero.getName();
+        		String rutaNormal = rutaFichero.getPath();
+        		Long tamañoFichero = rutaFichero.getTotalSpace();
+        		Boolean propiedadesFichero1 = rutaFichero.canExecute();
+        		Boolean propiedadesFichero2 = rutaFichero.canRead();
+        		Boolean propiedadesFichero3 = rutaFichero.canWrite();
+        		propiedadesRuta.add(nombreFichero);
+        		propiedadesRuta.add(rutaNormal);
+        		String tamañoFicherostr = String.valueOf(tamañoFichero);
+        		String propiedad1str = String.valueOf(propiedadesFichero1);
+        		String propiedad2str = String.valueOf(propiedadesFichero2);
+        		String propiedad3str = String.valueOf(propiedadesFichero3);
+        		propiedadesRuta.add(tamañoFicherostr);
+        		propiedadesRuta.add(propiedad1str);
+        		propiedadesRuta.add(propiedad2str);
+        		propiedadesRuta.add(propiedad3str);
+        		textAreaContenido.setText(String.join("\n", propiedadesRuta));
+        		
+        	}
+        });
+        btnAbrir.setBounds(350, 20, 100, 25);
+        frame.getContentPane().add(btnAbrir);
+
+        textAreaContenido = new JTextArea();
+        textAreaContenido.setBounds(20, 56, 430, 294);
+        frame.getContentPane().add(textAreaContenido);
+    }
+}

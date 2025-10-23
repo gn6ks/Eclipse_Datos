@@ -1,0 +1,56 @@
+package repaso1;
+
+import java.io.*;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec5 {
+    private JFrame frame;
+    private JTextField txtTitulo;
+    private JTextArea textAreaContenido;
+    private JList<String> listInformes;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec5 window = new ejec5();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec5() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Generador de Informes");
+        frame.setBounds(100, 100, 600, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtTitulo = new JTextField();
+        txtTitulo.setBounds(20, 20, 300, 25);
+        frame.getContentPane().add(txtTitulo);
+
+        textAreaContenido = new JTextArea();
+        textAreaContenido.setBounds(20, 60, 300, 200);
+        frame.getContentPane().add(textAreaContenido);
+
+        JButton btnGuardar = new JButton("Guardar Informe");
+        btnGuardar.setBounds(20, 280, 130, 25);
+        frame.getContentPane().add(btnGuardar);
+
+        JButton btnCargar = new JButton("Cargar Informes");
+        btnCargar.setBounds(160, 280, 130, 25);
+        frame.getContentPane().add(btnCargar);
+
+        listInformes = new JList<>();
+        listInformes.setBounds(350, 20, 200, 400);
+        frame.getContentPane().add(listInformes);
+    }
+}

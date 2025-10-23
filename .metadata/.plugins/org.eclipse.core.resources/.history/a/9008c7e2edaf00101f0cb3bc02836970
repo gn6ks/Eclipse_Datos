@@ -1,0 +1,95 @@
+package repaso1;
+
+import java.io.*;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec3 {
+    private JFrame frame;
+    private JTextField txtNombreReceta;
+    private JTextArea textAreaIngredientes;
+    private JTextArea textAreaRecetas;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec3 window = new ejec3();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec3() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Gestor de Recetas");
+        frame.setBounds(100, 100, 600, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtNombreReceta = new JTextField();
+        txtNombreReceta.setBounds(20, 20, 200, 25);
+        frame.getContentPane().add(txtNombreReceta);
+
+        JLabel lblIngredientes = new JLabel("Ingredientes:");
+        lblIngredientes.setBounds(20, 60, 100, 25);
+        frame.getContentPane().add(lblIngredientes);
+
+        textAreaIngredientes = new JTextArea();
+        textAreaIngredientes.setBounds(20, 90, 200, 175);
+        frame.getContentPane().add(textAreaIngredientes);
+
+        JButton btnGuardar = new JButton("Guardar Receta");
+        btnGuardar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String nombreReceta = txtNombreReceta.getText();
+        		if (nombreReceta.isEmpty()) {
+        			JOptionPane.showMessageDialog(btnGuardar, "no se ha puesto un nombre a la receta");
+        		} else {
+        			try (BufferedWriter bw = new BufferedWriter(new FileWriter("recetas.txt"))) {
+        				bw.write(nombreReceta);
+        				String ingredientes = textAreaIngredientes.getText();
+        				String[] ingredientesArr = ingredientes.split("\n");
+        				for (String ingrediente : ingredientesArr) {
+        					bw.write(ingrediente);
+        					bw.newLine();
+        				}
+        				JOptionPane.showMessageDialog(btnGuardar, "ingredientes y receta guardada correctamente");
+        			} catch (Exception ex) {
+        				ex.printStackTrace();
+        			}
+        		}
+        	}
+        });
+        btnGuardar.setBounds(20, 276, 200, 62);
+        frame.getContentPane().add(btnGuardar);
+
+        JButton btnCargar = new JButton("Cargar Recetas");
+        btnCargar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try (BufferedReader br = new BufferedReader(new FileReader("recetas.txt"))) {
+        			String linea;
+        			StringBuilder sb = new StringBuilder();
+        			while ((linea = br.readLine()) != null) {
+        				sb.append(linea).append("\n");
+        			}
+        			textAreaRecetas.setText(sb.toString());
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	}
+        });
+        btnCargar.setBounds(20, 349, 200, 71);
+        frame.getContentPane().add(btnCargar);
+
+        textAreaRecetas = new JTextArea();
+        textAreaRecetas.setBounds(250, 20, 300, 400);
+        frame.getContentPane().add(textAreaRecetas);
+    }
+}

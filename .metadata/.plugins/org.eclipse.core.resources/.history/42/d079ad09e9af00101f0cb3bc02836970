@@ -1,0 +1,70 @@
+package repaso1;
+
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ejec2 {
+    private JFrame frame;
+    private JTextField txtError;
+    private JTextArea textAreaLogs;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                ejec2 window = new ejec2();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ejec2() {
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Registrador de Logs");
+        frame.setBounds(100, 100, 500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        txtError = new JTextField();
+        txtError.setBounds(20, 20, 300, 25);
+        frame.getContentPane().add(txtError);
+
+        JButton btnRegistrar = new JButton("Registrar Error");
+        btnRegistrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String error = txtError.getText();
+        		File erroresLog = new File("errores.log");
+        		try {
+        			erroresLog.createNewFile();
+        		} catch (Exception e2) {
+        			e2.printStackTrace();
+        		}
+        		try (BufferedWriter br = new BufferedWriter(new FileWriter("errores.log"))) {
+        			if (error == "" || error == null ) {
+        				JOptionPane.showMessageDialog(btnRegistrar, "No se ha puesto un error");
+        			}
+        		} catch (Exception e3) {
+        			e3.printStackTrace();
+        		}
+        	}
+        });
+        btnRegistrar.setBounds(330, 20, 140, 25);
+        frame.getContentPane().add(btnRegistrar);
+
+        JButton btnMostrar = new JButton("Mostrar Logs");
+        btnMostrar.setBounds(20, 60, 120, 25);
+        frame.getContentPane().add(btnMostrar);
+
+        textAreaLogs = new JTextArea();
+        textAreaLogs.setBounds(20, 100, 430, 250);
+        frame.getContentPane().add(textAreaLogs);
+    }
+}
