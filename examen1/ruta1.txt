@@ -1,5 +1,4 @@
-archivo1.txt | 0 B | 
-archivo2.txt | 0 B | 
-archivo3.txt | 0 B | 
-archivo4.txt | 0 B | 
-archivo5.txt | 0 B | 
+\carpeta | 0 B | 24/10/2025-09:37:49
+MEMORIA PRÁC(...) | 0 B | 02/10/2025-09:34:47
+memoriaMAT.odt | 0 B | 02/10/2025-09:34:47
+memoria_prac(...) | 0 B | 02/10/2025-09:34:47

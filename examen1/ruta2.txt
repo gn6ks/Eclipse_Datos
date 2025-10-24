@@ -1,5 +1,3 @@
-archivo1.txt | 0 B | 
-archivo2.txt | 0 B | 
-archivo3.txt | 0 B | 
-archivo4.txt | 0 B | 
-archivo5.txt | 0 B | 
+T1_1. Suma y(...) | 229396 KB | 10/10/2025-11:39:54
+T1_2. Operac(...) | 171781 KB | 10/10/2025-12:06:06
+T1_3. Determ(...) | 276458 KB | 10/10/2025-17:13:16
